@@ -2,7 +2,11 @@
 A simple bingo website with great functionality 
 
 
-Elytra15 Bingo website is a 300 row long html code made to be able to anter text in 25 tetxfield then change to "Mark" mode and makr the tiles you want. For example i use the website for "Apple Bingo". Before a Apple event i enter what i think will be relesed and then during the event i mark what i got right. The text is saved even if you close the page or refresh.
+Elytra15 Bingo website is a 300 row long html code made to be able to anter text in 25 tetxfield then change to "Mark" mode and mark the tiles you want. For example i use the website for "Apple Bingo". Before a Apple event i enter what i think will be relesed and then during the event i mark what i got right. The text is saved even if you close the page or refresh. To test the website visit https://bingo.elytra15.com
+
+The code is free to use or modify, you can use it on your own website or for private use. The only thing i request is that you keep the "Github" button so other people can download and use the code.
+
+If you have any request, bugs or questions don't hesitate to contact me support@elytra15.com
 
 Features:
 - Enter text and mark tiles
@@ -22,5 +26,6 @@ Customize:
 - Update countdown timer and timezone, Row: 257
 - Update countdown text example "Timer ening in: 10 Days", Row: 267
 - Update countdown ended text example "Countdown ended!", Row: 261
+- To add a image on the top of the screen, add a image called Logo.png or add text on row: 92
 
 
