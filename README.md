@@ -14,10 +14,13 @@ Features:
 
 Customize:
 - Customize Colors and title, Row: 6 - 95
-- Customize "Made By" text, Row:142
+- Customize "Made By" text, Row: 142
 - Enable editing text when a tile is marked, change row 175 to "const editable = 0;"
 - Disable editing text (Example after an event is over) and replace with preset text, change row 192 to "const editable = 1;"
   and write your preset text on row 194
-- 
+- Change name of exported file example "Backup.txt", Row: 227
+- Update countdown timer and timezone, Row: 257
+- Update countdown text example "Timer ening in: 10 Days", Row: 267
+- Update countdown ended text example "Countdown ended!", Row: 261
 
 
