@@ -89,7 +89,7 @@
 </head>
 
 <body>
-    <h1><img src="logo.png" alt=" You can add an image here, row 92. Thank me later :)" width="400" height="400"></h1>
+    <h1><img src="logo.png" alt="You can add an image here, row 92. Thank me later :)" width="400" height="400"></h1>
     <table>
         <div style="text-align: center;">
             <div id="countdown" style="font-family: 'Roboto', sans-serif; font-size: 28px; color: #333; background-color: #f5f5f5; padding: 15px 30px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); display: inline-block;"></div>
@@ -139,7 +139,7 @@
     <button id="randomizeButton">Randomize</button>
     <button id="githubButton" onclick="window.open('https://github.com/Elytra15/Bingo/tree/main', '_blank')">GitHub</button>
     <div id="footer">
-        <a href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15</a>
+        <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15</a>
     </div>
     <script>
        function saveText() {
@@ -272,16 +272,17 @@ markButton.addEventListener('click', function () {
         updateCountdown();
 
         const clearButton = document.getElementById('clearButton');
-        clearButton.addEventListener('click', function () {
-            const confirmClear = confirm('Are you sure you want to clear all text?');
-            if (confirmClear) {
-                cells.forEach((cell) => {
-                    cell.value = '';
-                });
-                saveText();
-            }
+clearButton.addEventListener('click', function () {
+    const confirmClear = confirm('Are you sure you want to clear all text and unmark tiles?');
+    if (confirmClear) {
+        cells.forEach((cell) => {
+            cell.value = '';
+            cell.parentElement.classList.remove('marked');
+            cell.removeAttribute('readonly');
         });
-
+        saveText();
+    }
+});
         function shuffleArray(array) {
             
             for (let i = array.length - 1; i > 0; i--) {
@@ -291,17 +292,24 @@ markButton.addEventListener('click', function () {
         }
 
         const randomizeButton = document.getElementById('randomizeButton');
-        randomizeButton.addEventListener('click', function () {
-            const confirmRan = confirm('Are you sure you want to randomize all text?');
-            if (confirmRan) {
-                const cells = document.querySelectorAll('td textarea');
+    randomizeButton.addEventListener('click', function () {
+        const confirmRan = confirm('Are you sure you want to randomize all text? (This will remove the highlighted tiles (Not the text))');
+        if (confirmRan) {
+            const cells = document.querySelectorAll('td textarea');
             const textArray = Array.from(cells).map(cell => cell.value);
+
+            cells.forEach((cell) => {
+                cell.parentElement.classList.remove('marked');
+                cell.removeAttribute('readonly');
+            });
+
             shuffleArray(textArray);
             cells.forEach((cell, index) => {
                 cell.value = textArray[index];
             });
-            saveText(); 
-            }
+
+            saveText();
+        }
             
         });
     </script>
