@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bingo</title>
+  <link rel="shortcut icon" href="logo.png"/>
+    <link rel="apple-touch-icon" href="logo.png">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Bingo">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="theme-color" content="#000000">
+    <style>
+        @font-face {
+            font-family: 'Roboto Mono';
+            src: url('font.ttf') format('truetype');
+            font-weight: 400;
+            font-style: normal;
+        }
+        body {
+            background-color: black;
+            text-align: center;
+            font-family: 'Roboto Mono', monospace;
+            color: white;
+            margin: 0;
+            padding: 0;
+            overflow: auto;
+            resize: vertical;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            max-width: 500px;
+            margin: 0 auto;
+            background-color: Snow;
+            overflow: auto;
+            resize: vertical;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            text-align: center;
+            word-wrap: break-word;
+            color: black;
+            padding: 5px;
+            font-family: 'Roboto Mono', monospace; 
+        }
+
+        th {
+            background-color: lightgray;
+        }
+
+        td {
+            position: relative;
+            width: 0;
+            padding-bottom: 20%; 
+        }
+
+        td textarea {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 98%; 
+            height: 25%; 
+            border: none;
+            background-color: transparent;
+            text-align: center;
+            font-size: 13px;
+            color: black;
+            resize: none;
+            line-height: normal; 
+            overflow: hidden; 
+            padding: 10px; 
+            font-family: 'Roboto Mono', monospace; 
+        }
+
+        .marked {
+            background-color: lightgray;
+        }
+
+        .unmarked {
+            background-color: white;
+            color: black;
+        }
+
+        h1 img {
+            display: inline-block;
+            max-width: 80%;
+            height: auto;
+            margin: 20px auto;
+        }
+
+        ::selection {
+            background-color: lightgray;
+            color: black;
+        }
+
+        #countdown {
+            font-family: 'Roboto Mono', monospace; 
+            font-size: 28px;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 15px 30px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+        }
+
+        @media (max-width: 768px) {
+            textarea {
+                font-size: 14px;
+            }
+        }
+
+        @media (min-width: 768px) {
+            table {
+                max-width: 800px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script>
+        var imageVariable = 1; 
+    </script>
+    <h1>
+        <script>
+            if (imageVariable === 1) {
+                document.write('This is a test text!');
+            } else {
+                document.write('<img src="logo.png" alt="" width="400" height="400">');
+            }
+        </script>
+    </h1>
+
+  
+    <table>
+        <div style="text-align: center;">
+            <div id="countdown" style="font-family: 'Roboto Mono', monospace; font-size: 28px; color: #333; background-color: #f5f5f5; padding: 15px 30px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); display: inline-block;"></div>
+        </div>
+        <div style="height: 20px;"></div>
+        <tr>
+        </tr>
+        <tr>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+        </tr>
+        <tr>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+            <td><textarea rows="3" cols="15"></textarea></td>
+        </tr>
+    </table>
+    <button id="markButton">Mark/Unmark</button>
+    <button id="exportButton">Export To Document</button>
+    <button id="clearButton">Clear</button>
+    <button id="randomizeButton">Randomize</button>
+    <button id="githubButton" onclick="window.open('https://github.com/Elytra15/Bingo/tree/main', '_blank')">GitHub</button>
+    <div id="footer">
+        <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.5 (Beta)</a>
+    </div>
+    <script>
+        function saveText() {
+            const cells = document.querySelectorAll('td textarea');
+            cells.forEach((cell, index) => {
+                const data = {
+                    value: cell.value,
+                    marked: cell.parentElement.classList.contains('marked')
+                };
+                localStorage.setItem(`cell-${index}`, JSON.stringify(data));
+            });
+        }
+
+        function loadText() {
+            const cells = document.querySelectorAll('td textarea');
+            cells.forEach((cell, index) => {
+                const savedData = localStorage.getItem(`cell-${index}`);
+                if (savedData !== null) {
+                    const data = JSON.parse(savedData);
+                    cell.value = data.value;
+                    if (data.marked) {
+                        cell.parentElement.classList.add('marked');
+                        cell.setAttribute('readonly', 'readonly');
+                    } else {
+                        cell.parentElement.classList.remove('marked');
+                        cell.removeAttribute('readonly');
+                    }
+                }
+            });
+        }
+
+        function toggleMarking(cell) {
+            const editable = 1;
+            if (!cell.classList.contains('marked')) {
+                cell.classList.add('marked');
+                if (editable === 1) {
+                    cell.querySelector('textarea').setAttribute('readonly', 'readonly');
+                }
+            } else {
+                cell.classList.remove('marked');
+                if (editable === 1) {
+                    cell.querySelector('textarea').removeAttribute('readonly');
+                }
+            }
+        }
+
+        const cells = document.querySelectorAll('td textarea');
+        cells.forEach((cell) => {
+            cell.addEventListener('input', function () {
+                const editable = 0;
+                if (editable === 1) {
+                    this.value = 'No editing after the event (Change me)';
+                } else {
+                    saveText();
+                }
+            });
+        });
+
+        const markButton = document.getElementById('markButton');
+        markButton.addEventListener('click', function () {
+            const editable = 0;
+            if (editable === 0) {
+                cells.forEach((cell) => {
+                    cell.parentElement.addEventListener('click', function () {
+                        toggleMarking(this);
+                        saveText();
+                    });
+                });
+            }
+        });
+
+        window.addEventListener('load', loadText);
+
+        function exportContent() {
+            const cells = document.querySelectorAll('td textarea');
+            let content = '';
+            cells.forEach((cell, index) => {
+                const text = cell.value.trim();
+                const position = `1x${index + 1}`;
+                content += `${position} '${text}'\n`;
+            });
+            const blob = new Blob([content], { type: 'text/plain' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'Bingo_BackUp.txt';
+            a.style.display = 'none';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        const exportButton = document.getElementById('exportButton');
+        exportButton.addEventListener('click', exportContent);
+
+        function loadContentFromFile(file) {
+            const reader = new FileReader();
+            reader.onload = function (e) {
+                const content = e.target.result;
+                const lines = content.split('\n');
+                const cells = document.querySelectorAll('td textarea');
+                lines.forEach((line, index) => {
+                    const match = line.match(/1x(\d+) '([^']+)'/);
+                    if (match && match[1] && match[2]) {
+                        const position = parseInt(match[1]) - 1;
+                        if (cells[position]) {
+                            cells[position].value = match[2];
+                        }
+                    }
+                });
+            };
+            reader.readAsText(file);
+        }
+
+        function updateCountdown() {
+            const targetDate = new Date('2023-03-22T09:00:00+02:00');
+            const currentDate = new Date();
+            const timeDifference = targetDate - currentDate;
+            if (timeDifference <= 0) {
+                document.getElementById('countdown').innerHTML = "See you at the next event! (Change me)";
+            } else {
+                const days = Math.floor(timeDifference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
+                document.getElementById('countdown').innerHTML = `Next event in (Change me): ${days}d ${hours}h ${minutes}m ${seconds}s`;
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        const clearButton = document.getElementById('clearButton');
+        clearButton.addEventListener('click', function () {
+            const confirmClear = confirm('Are you sure you want to clear all text and unmark tiles?');
+            if (confirmClear) {
+                cells.forEach((cell) => {
+                    cell.value = '';
+                    cell.parentElement.classList.remove('marked');
+                    cell.removeAttribute('readonly');
+                });
+                saveText();
+            }
+        });
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+        }
+
+        const randomizeButton = document.getElementById('randomizeButton');
+        randomizeButton.addEventListener('click', function () {
+            const confirmRan = confirm('Are you sure you want to randomize all text?');
+            if (confirmRan) {
+                const cells = document.querySelectorAll('td textarea');
+                const textArray = Array.from(cells).map(cell => ({ value: cell.value, marked: cell.parentElement.classList.contains('marked') }));
+
+                shuffleArray(textArray);
+
+                textArray.forEach((data, index) => {
+                    cells[index].value = data.value;
+                    if (data.marked) {
+                        cells[index].parentElement.classList.add('marked');
+                    } else {
+                        cells[index].parentElement.classList.remove('marked');
+                    }
+                });
+
+                saveText();
+            }
+        });
+    </script>
+</body>
+</html>
