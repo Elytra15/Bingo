@@ -29,3 +29,4 @@ Customize:
 - To add a image on the top of the screen, add a image called Logo.png or add text on row: 92
 
 
+V.1.4 Beta available to test https://bingo.elytra15.com/beta.html
