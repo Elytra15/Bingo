@@ -17,16 +17,16 @@ Features:
 - Build-in countdown timer
 
 Customize:
-- Customize Colors and title, Row: 6 - 95
-- Customize "Made By" text, Row: 142
-- Enable editing text when a tile is marked, change row 175 to "const editable = 0;"
-- Disable editing text (Example after an event is over) and replace with preset text, change row 192 to "const editable = 1;"
-  and write your preset text on row 194
-- Change name of exported file example "Backup.txt", Row: 227
-- Update countdown timer and timezone, Row: 257
-- Update countdown text example "Timer ending in: 10 Days", Row: 267
-- Update countdown ended text example "Countdown ended!", Row: 261
-- To add a image on the top of the screen, add a image called Logo.png or add text on row: 92
+- Customize Colors and title, Row: 21 - 111
+- Customize "Made By" text, Row: 191
+- Enable editing text when a tile is marked, change row 224 to "const editable = 0;"
+- Disable editing text (Example after an event is over) and replace with preset text, change row 241 to "const editable = 1;"
+  and write your preset text on row 193
+- Change name of exported file example "Backup.txt", Row: 276
+- Update countdown timer and timezone, Row: 306
+- Update countdown text example "Timer ending in: 10 Days", Row: 316
+- Update countdown ended text example "Countdown ended!", Row: 310
+- To add a image on the top of the screen, add a image called Logo.png or add text on row: 134 & 136
 
 
-V.1.4 Beta available to test https://bingo.elytra15.com/beta.html
+V.1.5 Beta available to test https://bingo.elytra15.com/beta.html
