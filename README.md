@@ -27,6 +27,9 @@ Customize:
 - Update countdown text example "Timer ending in: 10 Days", Row: 316
 - Update countdown ended text example "Countdown ended!", Row: 310
 - To add a image on the top of the screen, add a image called Logo.png or add text on row: 134 & 136
+- Change ::Selection so when you mark text the text get highlighted: row 98 and 99
+- Add custom font "font.ttf" or use default
+- Add "logo.png" to add as favicon, and web app logo
 
 
 V.1.5 Beta available to test https://bingo.elytra15.com/beta.html
