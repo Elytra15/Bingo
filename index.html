@@ -12,6 +12,8 @@
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#000000">
     <style>
+
+        
         @font-face {
             font-family: 'Roboto Mono';
             src: url('font.ttf') format('truetype');
@@ -108,15 +110,18 @@
         }
 
         #countdown {
-            font-family: 'Roboto Mono', monospace; 
-            font-size: 28px;
-            color: #333;
-            background-color: #f5f5f5;
-            padding: 15px 30px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-            display: inline-block;
-        }
+        font-family: 'Roboto Mono', monospace; 
+        font-size: 28px;
+        color: #333;
+        background-color: #f5f5f5;
+        padding: 15px 30px;
+        border-radius: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        display: inline-block;
+        margin-bottom: 20px; 
+    }
+
+    
 
         @media (max-width: 768px) {
             textarea {
@@ -177,9 +182,9 @@
             margin: 0 10px;
         }
 
-        .space-below-countdown {
-            height: 20px;
-        }
+        
+
+        
     </style>
 </head>
 
@@ -266,8 +271,9 @@
     <input type="file" id="imageInput" accept="image/*" style="display: none;">
 
     <div id="footer">
-        <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.5</a>
-    </div>
+    <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.5 (Enchanted)</a>
+    <p style="color: gray; font-size: small;">Uploading an image will not work while using Lockdown Mode on iOS.</p>
+</div>
 
     <script>
         function saveText() {
@@ -339,7 +345,7 @@
             let content = '';
             cells.forEach((cell, index) => {
                 const text = cell.value.trim();
-                const position = `1x${index + 1}`;
+                const position = `Nr.${index + 1}`;
                 content += `${position} '${text}'\n`;
             });
             const blob = new Blob([content], { type: 'text/plain' });
