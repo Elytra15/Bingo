@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bingo</title>
-  <link rel="shortcut icon" href="logo.png"/>
+    <link rel="shortcut icon" href="logo.png"/>
     <link rel="apple-touch-icon" href="logo.png">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
@@ -27,6 +27,9 @@
             padding: 0;
             overflow: auto;
             resize: vertical;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
         }
 
         table {
@@ -60,23 +63,27 @@
         }
 
         td textarea {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 98%; 
-            height: 25%; 
-            border: none;
-            background-color: transparent;
-            text-align: center;
-            font-size: 13px;
-            color: black;
-            resize: none;
-            line-height: normal; 
-            overflow: hidden; 
-            padding: 10px; 
-            font-family: 'Roboto Mono', monospace; 
-        }
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 98%; 
+    height: 98%; 
+    border: none;
+    background-color: transparent;
+    text-align: center;
+    font-size: 13px;
+    color: black;
+    resize: none;
+    overflow: hidden; 
+    padding: 70px 10px 10px; 
+    font-family: 'Roboto Mono', monospace;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start; 
+}
+
 
         .marked {
             background-color: lightgray;
@@ -89,8 +96,9 @@
 
         h1 img {
             display: inline-block;
-            max-width: 80%;
-            height: auto;
+            width: 300px;
+            height: 300px;
+            object-fit: cover;
             margin: 20px auto;
         }
 
@@ -121,6 +129,57 @@
                 max-width: 800px;
             }
         }
+
+        .dropdown {
+            display: inline-block;
+            position: relative;
+            margin: 10px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+            z-index: 1;
+            bottom: 100%;
+        }
+
+        .dropdown-content button {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .dropdown-content button:hover {
+            background-color: #f1f1f1;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .footer {
+            margin-top: auto;
+            padding: 10px;
+            display: flex;
+            justify-content: center;
+            background: none;
+        }
+
+        .footer .dropdown {
+            margin: 0 10px;
+        }
+
+        .space-below-countdown {
+            height: 20px;
+        }
     </style>
 </head>
 
@@ -128,22 +187,21 @@
     <script>
         var imageVariable = 1; 
     </script>
-    <h1>
+    <h1 id="headerContent">
         <script>
             if (imageVariable === 1) {
                 document.write('This is a test text!');
             } else {
-                document.write('<img src="logo.png" alt="" width="400" height="400">');
+                document.write('<img id="headerImage" src="logo.png" alt="Bingo Image">');
             }
         </script>
     </h1>
-
-  
+    
     <table>
         <div style="text-align: center;">
-            <div id="countdown" style="font-family: 'Roboto Mono', monospace; font-size: 28px; color: #333; background-color: #f5f5f5; padding: 15px 30px; border-radius: 5px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); display: inline-block;"></div>
+            <div id="countdown"></div>
         </div>
-        <div style="height: 20px;"></div>
+        <div class="space-below-countdown"></div>
         <tr>
         </tr>
         <tr>
@@ -182,22 +240,40 @@
             <td><textarea rows="3" cols="15"></textarea></td>
         </tr>
     </table>
-    <button id="markButton">Mark/Unmark</button>
-    <button id="exportButton">Export To Document</button>
-    <button id="clearButton">Clear</button>
-    <button id="randomizeButton">Randomize</button>
-    <button id="githubButton" onclick="window.open('https://github.com/Elytra15/Bingo/tree/main', '_blank')">GitHub</button>
-    <div id="footer">
-        <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.4</a>
+
+    <div class="footer">
+        <div class="dropdown">
+            <button onclick="toggleDropdown(this)">Settings</button>
+            <div class="dropdown-content">
+                <button id="markButton">Mark/Unmark</button>
+                <button id="exportButton">Export To Document</button>
+                <button id="clearButton">Clear</button>
+                <button id="randomizeButton">Randomize</button>
+            </div>
+        </div>
+
+        <div class="dropdown">
+            <button onclick="toggleDropdown(this)">Image Control</button>
+            <div class="dropdown-content">
+                <button id="uploadImageButton">Upload Image</button>
+                <button id="clearImageButton">Clear Image</button>
+            </div>
+        </div>
+
+        <button id="githubButton" onclick="window.open('https://github.com/Elytra15/Bingo/tree/main', '_blank')">GitHub</button>
     </div>
+    
+    <input type="file" id="imageInput" accept="image/*" style="display: none;">
+
+    <div id="footer">
+        <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.5</a>
+    </div>
+
     <script>
         function saveText() {
             const cells = document.querySelectorAll('td textarea');
             cells.forEach((cell, index) => {
-                const data = {
-                    value: cell.value,
-                    marked: cell.parentElement.classList.contains('marked')
-                };
+                const data = { value: cell.value, marked: cell.parentElement.classList.contains('marked') };
                 localStorage.setItem(`cell-${index}`, JSON.stringify(data));
             });
         }
@@ -206,15 +282,11 @@
             const cells = document.querySelectorAll('td textarea');
             cells.forEach((cell, index) => {
                 const savedData = localStorage.getItem(`cell-${index}`);
-                if (savedData !== null) {
+                if (savedData) {
                     const data = JSON.parse(savedData);
                     cell.value = data.value;
                     if (data.marked) {
                         cell.parentElement.classList.add('marked');
-                        cell.setAttribute('readonly', 'readonly');
-                    } else {
-                        cell.parentElement.classList.remove('marked');
-                        cell.removeAttribute('readonly');
                     }
                 }
             });
@@ -260,7 +332,7 @@
             }
         });
 
-        window.addEventListener('load', loadText);
+        loadText();
 
         function exportContent() {
             const cells = document.querySelectorAll('td textarea');
@@ -340,7 +412,7 @@
             }
         }
 
-        const randomizeButton = document.getElementById('randomizeButton');
+         const randomizeButton = document.getElementById('randomizeButton');
         randomizeButton.addEventListener('click', function () {
             const confirmRan = confirm('Are you sure you want to randomize all text?');
             if (confirmRan) {
@@ -361,6 +433,73 @@
                 saveText();
             }
         });
+
+        function saveImage(imageData) {
+            localStorage.setItem('headerImage', imageData);
+        }
+
+        function loadImage() {
+            const savedImage = localStorage.getItem('headerImage');
+            if (savedImage) {
+                const img = document.getElementById('headerImage');
+                if (img) {
+                    img.src = savedImage;
+                } else {
+                    document.getElementById('headerContent').innerHTML = `<img id="headerImage" src="${savedImage}" alt="" width="400" height="400">`;
+                }
+            }
+        }
+
+        function clearImage() {
+            localStorage.removeItem('headerImage');
+            document.getElementById('headerContent').innerHTML = 'This is a test text!';
+        }
+
+       document.getElementById('uploadImageButton').addEventListener('click', function () {
+    document.getElementById('imageInput').click();
+});
+ 
+
+        document.getElementById('imageInput').addEventListener('change', function (event) {
+    const file = event.target.files[0];
+    if (file) {
+        const reader = new FileReader();
+        reader.onload = function (e) {
+            const img = document.getElementById('headerImage');
+            if (img) {
+                img.src = e.target.result;
+            } else {
+                document.getElementById('headerContent').innerHTML = `<img id="headerImage" src="${e.target.result}" alt="" width="300" height="300" style="object-fit: cover;">`;
+            }
+            saveImage(e.target.result);
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+        document.getElementById('clearImageButton').addEventListener('click', clearImage);
+
+        loadImage();
+
+        function toggleDropdown(button) {
+            const dropdownContent = button.nextElementSibling;
+            if (dropdownContent.style.display === "block") {
+                dropdownContent.style.display = "none";
+            } else {
+                dropdownContent.style.display = "block";
+            }
+        }
+
+        window.onclick = function(event) {
+            if (!event.target.matches('.dropdown button')) {
+                const dropdowns = document.querySelectorAll('.dropdown-content');
+                dropdowns.forEach((dropdown) => {
+                    if (dropdown.style.display === 'block') {
+                        dropdown.style.display = 'none';
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>
