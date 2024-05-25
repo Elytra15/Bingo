@@ -120,7 +120,6 @@
         display: inline-block;
         margin-bottom: 20px; 
     }
-
     
 
         @media (max-width: 768px) {
@@ -136,10 +135,23 @@
         }
 
         .dropdown {
+				
             display: inline-block;
             position: relative;
             margin: 10px;
+						
         }
+				.dropdown button {
+            color: black; 
+						width: 85px;
+						height: 50px;
+        }
+				
+				#githubButton, #markButton {
+				color: black; 
+				width: 85px;
+				height: 50px;
+				}
 
         .dropdown-content {
             display: none;
@@ -168,6 +180,7 @@
 
         .dropdown:hover .dropdown-content {
             display: block;
+						
         }
 
         .footer {
@@ -247,11 +260,12 @@
     </table>
 
     <div class="footer">
+<button id="markButton">Enter mark mode</button>
+
         <div class="dropdown">
-            <button onclick="toggleDropdown(this)">Settings</button>
+            <button onclick="toggleDropdown(this)">Options</button>
             <div class="dropdown-content">
-                <button id="markButton">Mark/Unmark</button>
-                <button id="exportButton">Export To Document</button>
+                                <button id="exportButton">Export To Document</button>
                 <button id="clearButton">Clear</button>
                 <button id="randomizeButton">Randomize</button>
             </div>
@@ -271,7 +285,7 @@
     <input type="file" id="imageInput" accept="image/*" style="display: none;">
 
     <div id="footer">
-    <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.5 (Enchanted)</a>
+    <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.5.1</a>
     <p style="color: gray; font-size: small;">Uploading an image will not work while using Lockdown Mode on iOS.</p>
 </div>
 
@@ -298,7 +312,7 @@
             });
         }
 
-        function toggleMarking(cell) {
+         function toggleMarking(cell) {
             const editable = 1;
             if (!cell.classList.contains('marked')) {
                 cell.classList.add('marked');
@@ -506,6 +520,20 @@
                 });
             }
         }
+
+function toggleButtonText() {
+            const markButton = document.getElementById('markButton');
+            if (markButton.textContent === 'Enter mark mode') {
+                markButton.textContent = 'Enter edit mode';
+            } else {
+                markButton.textContent = 'Enter mark mode';
+            }
+
+        }
+
+        
+        document.getElementById('markButton').addEventListener('click', toggleButtonText);
+        
     </script>
 </body>
 </html>
