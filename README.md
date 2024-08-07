@@ -2,7 +2,7 @@
 A simple bingo website with great functionality 
 
 
-Elytra15 Bingo website is a 300-row long html code made to be able to enter text in 25 text fields then change to "Mark" mode and mark the tiles you want. For example i use the website for "Apple Bingo". Before a Apple event i enter what i think will be released and then during the event i mark what i got right. The text is saved even if you close the page or refresh. To test the website visit https://bingo.elytra15.com .
+Elytra15 Bingo website is a 700-row long html code made to be able to enter text in 25 text fields then change to "Mark" mode and mark the tiles you want. For example i use the website for "Apple Bingo". Before a Apple event i enter what i think will be released and then during the event i mark what i got right. The text is saved even if you close the page or refresh. To test the website visit https://bingo.elytra15.com .
 
 The code is free to use or modify, you can use it on your own website or for private use. The only thing i request is that you keep the "Github" button so other people can download and use the code.
 
@@ -16,6 +16,21 @@ Features:
 - Customize color of background, text and add a custom image
 - Build-in countdown timer
 
+!!!For version 1.6!!!
+Customize:
+- Customize Colors and title, Row: 21 - 209
+- Customize "Made By" text, Row: 314
+- Change name of exported file example "Backup.txt", Row: 483
+- Update countdown timer and timezone, Row: 514
+- Update countdown text example "Timer ending in: 10 Days", Row: 524
+- Update countdown ended text example "Countdown ended!", Row: 518
+- To add a image on the top of the screen, add a image called Logo.png or change tow 231 to "var imageVariable = 1;" and add an text on row 236
+- Change ::Selection so when you mark text the text get highlighted: row 141 and 142
+- Add custom font "font.ttf" or use default
+- Add "logo.png" to add as favicon, and web app logo
+
+
+!!!For version 1.3!!!
 Customize:
 - Customize Colors and title, Row: 21 - 111
 - Customize "Made By" text, Row: 191
@@ -32,4 +47,4 @@ Customize:
 - Add "logo.png" to add as favicon, and web app logo
 
 
-V.1.5 Beta available to test https://bingo.elytra15.com/beta.html
+V.1.6 Beta available to test https://bingo.elytra15.com/beta.html
