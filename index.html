@@ -11,9 +11,8 @@
     <meta name="apple-mobile-web-app-title" content="Bingo">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#000000">
+    <body onload="checkBingo()"></body>
     <style>
-
-        
         @font-face {
             font-family: 'Roboto Mono';
             src: url('font.ttf') format('truetype');
@@ -42,10 +41,10 @@
             background-color: Snow;
             overflow: auto;
             resize: vertical;
+            position: relative;
         }
 
-        th,
-        td {
+        th, td {
             border: 1px solid black;
             text-align: center;
             word-wrap: break-word;
@@ -65,27 +64,26 @@
         }
 
         td textarea {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 98%; 
-    height: 98%; 
-    border: none;
-    background-color: transparent;
-    text-align: center;
-    font-size: 13px;
-    color: black;
-    resize: none;
-    overflow: hidden; 
-    padding: 70px 10px 10px; 
-    font-family: 'Roboto Mono', monospace;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start; 
-}
-
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 98%; 
+            height: 98%; 
+            border: none;
+            background-color: transparent;
+            text-align: center;
+            font-size: 13px;
+            color: black;
+            resize: none;
+            overflow: hidden; 
+            padding: 70px 10px 10px; 
+            font-family: 'Roboto Mono', monospace;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start; 
+        }
 
         .marked {
             background-color: lightgray;
@@ -95,6 +93,41 @@
             background-color: white;
             color: black;
         }
+        .hide-lines .bingo-line {
+    display: none;
+}
+
+        .bingo-line {
+    position: absolute;
+    background-color: black; 
+    z-index: 10;
+}
+
+.bingo-horizontal {
+    background-color: black;
+}
+
+.bingo-vertical {
+    background-color: black;
+}
+.toggle-button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #f1f1f1;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: black;
+}
+
+.toggle-button.active {
+    background-color: #d1d1d1;
+}
+
+
+
 
         h1 img {
             display: inline-block;
@@ -110,18 +143,17 @@
         }
 
         #countdown {
-        font-family: 'Roboto Mono', monospace; 
-        font-size: 28px;
-        color: #333;
-        background-color: #f5f5f5;
-        padding: 15px 30px;
-        border-radius: 20px;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        display: inline-block;
-        margin-bottom: 20px; 
-    }
+            font-family: 'Roboto Mono', monospace; 
+            font-size: 28px;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 15px 30px;
+            border-radius: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            display: inline-block;
+            margin-bottom: 20px; 
+        }
     
-
         @media (max-width: 768px) {
             textarea {
                 font-size: 14px;
@@ -135,23 +167,22 @@
         }
 
         .dropdown {
-				
             display: inline-block;
             position: relative;
             margin: 10px;
-						
         }
-				.dropdown button {
+
+        .dropdown button {
             color: black; 
-						width: 85px;
-						height: 50px;
+            width: 85px;
+            height: 50px;
         }
-				
-				#githubButton, #markButton {
-				color: black; 
-				width: 85px;
-				height: 50px;
-				}
+
+        #githubButton, #markButton {
+            color: black; 
+            width: 85px;
+            height: 50px;
+        }
 
         .dropdown-content {
             display: none;
@@ -180,7 +211,6 @@
 
         .dropdown:hover .dropdown-content {
             display: block;
-						
         }
 
         .footer {
@@ -194,13 +224,8 @@
         .footer .dropdown {
             margin: 0 10px;
         }
-
-        
-
-        
     </style>
 </head>
-
 <body>
     <script>
         var imageVariable = 1; 
@@ -215,13 +240,11 @@
         </script>
     </h1>
     
-    <table>
+    <table id="bingoTable">
         <div style="text-align: center;">
             <div id="countdown"></div>
         </div>
         <div class="space-below-countdown"></div>
-        <tr>
-        </tr>
         <tr>
             <td><textarea rows="3" cols="15"></textarea></td>
             <td><textarea rows="3" cols="15"></textarea></td>
@@ -260,17 +283,21 @@
     </table>
 
     <div class="footer">
-<button id="markButton">Enter mark mode</button>
-
+        <button id="markButton">Enter mark mode</button>
         <div class="dropdown">
             <button onclick="toggleDropdown(this)">Options</button>
             <div class="dropdown-content">
-                                <button id="exportButton">Export To Document</button>
+                <button id="exportButton">Export To Document</button>
                 <button id="clearButton">Clear</button>
                 <button id="randomizeButton">Randomize</button>
+                <button id="toggleLinesButton">Hide Lines</button>
+                <button id="importButton">Import</button>
+        <input type="file" id="fileInput" style="display: none;">
+
             </div>
         </div>
-
+        
+        
         <div class="dropdown">
             <button onclick="toggleDropdown(this)">Image Control</button>
             <div class="dropdown-content">
@@ -278,16 +305,15 @@
                 <button id="clearImageButton">Clear Image</button>
             </div>
         </div>
-
         <button id="githubButton" onclick="window.open('https://github.com/Elytra15/Bingo/tree/main', '_blank')">GitHub</button>
     </div>
     
     <input type="file" id="imageInput" accept="image/*" style="display: none;">
 
     <div id="footer">
-    <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.5.1</a>
-    <p style="color: gray; font-size: small;">Uploading an image will not work while using Lockdown Mode on iOS.</p>
-</div>
+        <a rel="me" href="https://elytra15.com/@Ville" target="_blank" style="color: white; text-decoration: underline;">Made By Elytra15<br>V1.6</a>
+        <p style="color: gray; font-size: small;">Uploading an image will not work while using Lockdown Mode on iOS.</p>
+    </div>
 
     <script>
         function saveText() {
@@ -312,7 +338,7 @@
             });
         }
 
-         function toggleMarking(cell) {
+        function toggleMarking(cell) {
             const editable = 1;
             if (!cell.classList.contains('marked')) {
                 cell.classList.add('marked');
@@ -325,7 +351,96 @@
                     cell.querySelector('textarea').removeAttribute('readonly');
                 }
             }
+            checkBingo();
         }
+
+        function checkBingo() {
+    const cells = document.querySelectorAll('td');
+    const rows = 5;
+    const cols = 5;
+
+    function getCell(row, col) {
+        return cells[row * cols + col];
+    }
+
+    function highlightLine(cells, direction) {
+        const cellRect = cells[0].getBoundingClientRect();
+        const lastCellRect = cells[cells.length - 1].getBoundingClientRect();
+        const line = document.createElement('div');
+        line.className = `bingo-line ${direction}`;
+        document.body.appendChild(line);
+
+        if (direction === 'bingo-horizontal') {
+            line.style.top = `${cellRect.top + window.scrollY + (cellRect.height / 2)}px`;
+            line.style.left = `${cellRect.left + window.scrollX}px`;
+            line.style.width = `${lastCellRect.right - cellRect.left}px`;
+            line.style.height = '5px';
+        } else if (direction === 'bingo-vertical') {
+            line.style.left = `${cellRect.left + window.scrollX + (cellRect.width / 2)}px`;
+            line.style.top = `${cellRect.top + window.scrollY}px`;
+            line.style.width = '5px';
+            line.style.height = `${lastCellRect.bottom - cellRect.top}px`;
+        }
+    }
+
+    document.querySelectorAll('.bingo-line').forEach(line => line.remove());
+
+    for (let i = 0; i < rows; i++) {
+        const row = [];
+        const col = [];
+        for (let j = 0; j < cols; j++) {
+            if (getCell(i, j).classList.contains('marked')) {
+                row.push(getCell(i, j));
+            }
+            if (getCell(j, i).classList.contains('marked')) {
+                col.push(getCell(j, i));
+            }
+        }
+        if (row.length === cols) {
+            highlightLine(row, 'bingo-horizontal');
+        }
+        if (col.length === rows) {
+            highlightLine(col, 'bingo-vertical');
+        }
+    }
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    var body = document.body;
+    var button = document.getElementById('toggleLinesButton');
+
+    if (localStorage.getItem('linesHidden') === 'true') {
+        body.classList.add('hide-lines');
+        button.textContent = 'Show Lines';
+        button.classList.add('active');
+    } else {
+        body.classList.remove('hide-lines');
+        button.textContent = 'Hide Lines';
+        button.classList.remove('active');
+    }
+});
+
+document.getElementById('toggleLinesButton').addEventListener('click', function () {
+    var body = document.body;
+    var button = this;
+
+    if (body.classList.contains('hide-lines')) {
+        body.classList.remove('hide-lines');
+        button.textContent = 'Hide Lines';
+        localStorage.setItem('linesHidden', 'false');
+    } else {
+        body.classList.add('hide-lines');
+        button.textContent = 'Show Lines';
+        localStorage.setItem('linesHidden', 'true');
+    }
+
+    button.classList.toggle('active');
+});
+
+
+
 
         const cells = document.querySelectorAll('td textarea');
         cells.forEach((cell) => {
@@ -355,22 +470,22 @@
         loadText();
 
         function exportContent() {
-            const cells = document.querySelectorAll('td textarea');
-            let content = '';
-            cells.forEach((cell, index) => {
-                const text = cell.value.trim();
-                const position = `Nr.${index + 1}`;
-                content += `${position} '${text}'\n`;
-            });
-            const blob = new Blob([content], { type: 'text/plain' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'Bingo_BackUp.txt';
-            a.style.display = 'none';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-        }
+    const cells = document.querySelectorAll('td textarea');
+    let content = '';
+    cells.forEach((cell, index) => {
+        const text = cell.value.trim();
+        const marked = cell.parentElement.classList.contains('marked') ? 'marked' : 'unmarked';
+        content += `Cell${index} '${text}' ${marked}\n`;
+    });
+    const blob = new Blob([content], { type: 'text/plain' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'Bingo_BackUp.txt';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+}
+
 
         const exportButton = document.getElementById('exportButton');
         exportButton.addEventListener('click', exportContent);
@@ -382,7 +497,7 @@
                 const lines = content.split('\n');
                 const cells = document.querySelectorAll('td textarea');
                 lines.forEach((line, index) => {
-                    const match = line.match(/1x(\d+) '([^']+)'/);
+                    const match = line.match(/Nr\.(\d+) '([^']+)'/);
                     if (match && match[1] && match[2]) {
                         const position = parseInt(match[1]) - 1;
                         if (cells[position]) {
@@ -395,6 +510,7 @@
         }
 
         function updateCountdown() {
+            checkBingo();
             const targetDate = new Date('2023-03-22T09:00:00+02:00');
             const currentDate = new Date();
             const timeDifference = targetDate - currentDate;
@@ -405,7 +521,7 @@
                 const hours = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
                 const minutes = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
                 const seconds = Math.floor((timeDifference % (1000 * 60)) / 1000);
-                document.getElementById('countdown').innerHTML = `Next event in (Change me): ${days}d ${hours}h ${minutes}m ${seconds}s`;
+                document.getElementById('countdown').innerHTML = `Next event in: ${days}d ${hours}h ${minutes}m ${seconds}s`;
             }
         }
 
@@ -422,6 +538,7 @@
                     cell.removeAttribute('readonly');
                 });
                 saveText();
+                checkBingo(); 
             }
         });
 
@@ -432,7 +549,7 @@
             }
         }
 
-         const randomizeButton = document.getElementById('randomizeButton');
+        const randomizeButton = document.getElementById('randomizeButton');
         randomizeButton.addEventListener('click', function () {
             const confirmRan = confirm('Are you sure you want to randomize all text?');
             if (confirmRan) {
@@ -451,6 +568,7 @@
                 });
 
                 saveText();
+                checkBingo(); 
             }
         });
 
@@ -475,27 +593,26 @@
             document.getElementById('headerContent').innerHTML = 'This is a test text!';
         }
 
-       document.getElementById('uploadImageButton').addEventListener('click', function () {
-    document.getElementById('imageInput').click();
-});
- 
+        document.getElementById('uploadImageButton').addEventListener('click', function () {
+            document.getElementById('imageInput').click();
+        });
 
         document.getElementById('imageInput').addEventListener('change', function (event) {
-    const file = event.target.files[0];
-    if (file) {
-        const reader = new FileReader();
-        reader.onload = function (e) {
-            const img = document.getElementById('headerImage');
-            if (img) {
-                img.src = e.target.result;
-            } else {
-                document.getElementById('headerContent').innerHTML = `<img id="headerImage" src="${e.target.result}" alt="" width="300" height="300" style="object-fit: cover;">`;
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const img = document.getElementById('headerImage');
+                    if (img) {
+                        img.src = e.target.result;
+                    } else {
+                        document.getElementById('headerContent').innerHTML = `<img id="headerImage" src="${e.target.result}" alt="" width="300" height="300" style="object-fit: cover;">`;
+                    }
+                    saveImage(e.target.result);
+                };
+                reader.readAsDataURL(file);
             }
-            saveImage(e.target.result);
-        };
-        reader.readAsDataURL(file);
-    }
-});
+        });
 
         document.getElementById('clearImageButton').addEventListener('click', clearImage);
 
@@ -521,19 +638,77 @@
             }
         }
 
-function toggleButtonText() {
+        function toggleButtonText() {
             const markButton = document.getElementById('markButton');
             if (markButton.textContent === 'Enter mark mode') {
                 markButton.textContent = 'Enter edit mode';
             } else {
                 markButton.textContent = 'Enter mark mode';
             }
-
         }
 
-        
         document.getElementById('markButton').addEventListener('click', toggleButtonText);
         
     </script>
+<script>
+    document.getElementById('importButton').addEventListener('click', function() {
+    document.getElementById('fileInput').click();
+});
+
+document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const content = e.target.result;
+        const lines = content.split('\n');
+        const cells = document.querySelectorAll('td textarea');
+
+        cells.forEach((cell, index) => {
+            const line = lines[index] || '';
+            const match = line.match(/Cell\d+ '([^']*)' (marked|unmarked)/);
+            if (match) {
+                cell.value = match[1];
+                if (match[2] === 'marked') {
+                    cell.parentElement.classList.add('marked');
+                } else {
+                    cell.parentElement.classList.remove('marked');
+                }
+            }
+        });
+    };
+    reader.readAsText(file);
+});
+
+    
+    function parseTextFile(content) {
+        const lines = content.split('\n');
+        const data = [];
+        
+        lines.forEach(line => {
+            const match = line.match(/Nr\.(\d+) '([^']+)'/);
+            if (match && match[1] && match[2]) {
+                const position = parseInt(match[1]) - 1;
+                data[position] = match[2];
+            }
+        });
+    
+        while (data.length < 25) {
+            data.push('');
+        }
+    
+        return data;
+    }
+    
+    function restoreTable(data) {
+        const textareas = document.querySelectorAll('#bingoTable textarea');
+        textareas.forEach((textarea, index) => {
+            textarea.value = data[index] || '';
+        });
+    }
+    </script>
+    
+
+    
 </body>
 </html>
